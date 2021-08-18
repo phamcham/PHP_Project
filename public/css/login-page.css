@@ -28,8 +28,13 @@ body {
 }
 
 .login-page .form-control {
-    border-width: 2.3px;
+    border-width: 1px;
+    border-left: 0px;
     border-radius: 10px;
+}
+
+.icon-text {
+    border-radius: 10px 0px 0px 10px !important;
 }
 
 .login-page .form-group label {

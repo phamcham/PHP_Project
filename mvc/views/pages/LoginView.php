@@ -6,15 +6,16 @@
                 <div class="card fat">
                     <div class="card-body">
                         <h3 class="card-title">Đăng nhập</h3>
-                        <form method="POST" novalidate="">
-                            <div class="form-group">
+                        <form method="GET" novalidate="">
+                            <div class="form-group input-group mb-3">
                                 <label for="user">Tên đăng nhập</label>
-                                <input id="user" type="text" class="form-control" name="text" value="" required autofocus>
-
+                                <span class="input-group-text icon-text">@</span>
+                                <input id="user" type="text" class="form-control" name="username" value="" required autofocus>
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group input-group mb-3">
                                 <label for="password">Mật khẩu</label>
+                                <span class="input-group-text icon-text">@</span>
                                 <input id="password" type="password" class="form-control" name="password" required data-eye>
                             </div>
 
