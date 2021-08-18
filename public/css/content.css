@@ -1,0 +1,9 @@
+.content {
+    padding-top: 100px;
+    height: -webkit-fill-available;
+}
+
+.content,
+html {
+    background-color: rgba(202, 205, 207, 0.226);
+}

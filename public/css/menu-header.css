@@ -1,0 +1,153 @@
+@charset "utf-8";
+
+/* ========== Fonts ========== */
+
+@import url('https://fonts.googleapis.com/css?family=Oxygen:400,700');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,600,600i,700');
+body {
+    /*font-family: sans-serif;*/
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    /*color: #010101;*/
+    color: #333;
+    font-size: 14px;
+    line-height: 26px;
+}
+
+img {
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+}
+
+p {
+    font-size: 14px;
+    line-height: 26px;
+    margin: 0;
+}
+
+ul,
+ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    color: #808080;
+    text-decoration: none;
+}
+
+.hidden {
+    display: none !important;
+}
+
+iframe {
+    border: none;
+}
+
+
+/* ========== HEADINGS FON-TSIZE ========== */
+
+h1 {
+    font-size: 36px;
+}
+
+h2 {
+    font-size: 30px;
+}
+
+h3 {
+    font-size: 18px;
+}
+
+h4 {
+    font-size: 16px;
+}
+
+h5 {
+    font-size: 14px;
+}
+
+h6 {
+    font-size: 12px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    line-height: 1.2;
+    color: #333333;
+    margin-top: 0;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.header {
+    box-shadow: 3px 0px 10px #BBB;
+    padding: 0px 30px 0px 20px;
+    background-color: #FFF;
+}
+
+.alert-warning {
+    color: #675931;
+    background-color: #f0e1af;
+    border-color: #ffeeba;
+}
+
+.logo-top>a {
+    display: inline-block;
+    position: relative;
+    z-index: 8
+}
+
+.logo-top {
+    padding-top: 0px;
+}
+
+.mainmenu {
+    display: inline-block;
+    position: relative;
+    z-index: 99
+}
+
+.mainmenu-area {
+    -webkit-transition: all 0.3s ease 0s;
+    transition: all 0.3s ease 0s;
+}
+
+.mainmenu ul#nav>li {
+    display: inline-block;
+    margin-right: 24px;
+    position: relative;
+}
+
+.mainmenu ul#nav>li>a {
+    color: #0d4e96;
+    display: block;
+    font-size: 14px;
+    line-height: 80px;
+    text-decoration: none;
+    font-weight: bold;
+    text-transform: uppercase;
+    -webkit-transition: all 0.3s ease 0s;
+    transition: all 0.3s ease 0s;
+    position: relative;
+}
+
+.mainmenu ul#nav>li>a:hover {
+    color: #e4332d;
+}
+
+.mainmenu ul#nav>li>a.active {
+    color: #e4332d;
+}
+
+.header-logo-menu.stick .mainmenu ul#nav>li>a:after {
+    bottom: 25px;
+}
