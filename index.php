@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-require_once "./mvc/Bridge.php";
-$myApp = new App();
+require_once "./core/Bridge.php";
+$myApp = new \Core\App();
 
 ?>
