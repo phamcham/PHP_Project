@@ -38,7 +38,7 @@ class App{
                     $this->action = $arr[2];
                 }
                 else{
-                    echo "page not found:" . $this->controller;
+                    echo "page not found:";
                     exit();
                 }
                 unset($arr[2]);

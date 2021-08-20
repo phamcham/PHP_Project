@@ -12,8 +12,22 @@ class LoginModel extends Model{
 
     }
 
-    function GetAll(){
+    function Vertify($username, $password){
+        $db = static::GetDB();
+        $sql = "select * from account where username = :user and password = :pass";
 
+        $st = $db->prepare($sql);
+        $st->bindParam(':user', $username);
+        $st->bindParam(':pass', $password);
+        $st->execute();
+
+        $result = $st->rowCount();
+        if ($result == 1){
+            return 1;
+        }
+        else{
+            return 0;
+        }
     }
 }
 
