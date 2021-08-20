@@ -1,5 +1,4 @@
 <?php
-
 namespace Client\Controllers;
 
 use Manager\Controllers\_ManagerController;
@@ -10,7 +9,11 @@ class LoginController extends _ClientController{
         $this->RenderView(_ClientController::CLIENT_LOGIN);
     }
 
-    function Vertify(){
+    function Verify(){
+        if ((!isset($_POST['username']) || trim($_POST['username']) == "") and
+        (!isset($_POST['password']) || trim($_POST['password']) == "")){
+            $this->RenderView(_ClientController::CLIENT_LOGIN);
+        }
         if (!isset($_POST['username']) || trim($_POST['username']) == ""){
             $this->RenderView(_ClientController::CLIENT_LOGIN, [
                 "reasonFailed" => "Tên đăng nhập không được để trống"
@@ -30,13 +33,15 @@ class LoginController extends _ClientController{
             
             // lay database o model de so sanh
             $loginModel = $this->GetModel(_ClientController::CLIENT_LOGIN);
-            $result = $loginModel->Vertify($username, $password);
+            $result = $loginModel->Verify($username, $password);
             // sau do tra data ra view
             if ($result == 1){
                 // dang nhap thanh cong
                 $_SESSION['username'] = $username;
                 $_SESSION['password'] = $password;
                 $this->RenderViewPermission(_ManagerController::PER_MANAGER, _ManagerController::HOME);
+                
+                header("Location: http://". $_SERVER['HTTP_HOST']. "/PHP_Project/Manager/Home");
             }
             else{
                 // dang nhap that bai
@@ -47,3 +52,5 @@ class LoginController extends _ClientController{
         }
     }
 }
+
+?>

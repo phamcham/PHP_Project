@@ -14,13 +14,18 @@
     <script src="/PHP_Project/public/lib/jquery/jquery-3.5.1.slim.min.js" type="text/javascript"></script>
     <script src="/PHP_Project/public/lib/bootstrap/bootstrap.bundle.min.js" type="text/javascript"></script>
     
+    <link href="/PHP_Project/public/css/layout.css" rel="stylesheet">
+
+    <!-- favicon -->
+    <link rel="shortcut icon" type="image/x-icon" href="/PHP_Project/public/images/favicon.png">
+
     <title>Trang Chủ Client</title>
 
 </head>
 <body>
     <?php require_once "./Client/views/blocks/HeaderMenu.php" ?>
 
-    <div class="content">
+    <div class="content container">
         <?php require_once "./Client/views/pages/" . $view . ".php" ?>
     </div>
 

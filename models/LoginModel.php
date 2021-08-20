@@ -12,7 +12,7 @@ class LoginModel extends Model{
 
     }
 
-    function Vertify($username, $password){
+    function Verify($username, $password){
         $db = static::GetDB();
         $sql = "select * from account where username = :user and password = :pass";
 

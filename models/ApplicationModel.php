@@ -2,20 +2,19 @@
 
 namespace Models;
 use Core\Model;
+use PDO;
 
 class ApplicationModel extends Model{
-    public function GetApplication(){
-        // 
-        //return "Thong tin application list";
+    public function GetAllByYear($year){
+        $sql = "select * from Application where idAdmissionsYear = :year";
+        $db = static::GetDB();
+        $st = $db->prepare($sql);
+        $st->bindParam(":year", $year['idAdmissionsYear']);
+        $st->execute();
+
+        $rows = $st->fetchAll();
+        return $rows;
     }
-}
-
-class ApplicationEntity{
-    public $idApplication;
-    public $idAdmissionsYear;
-    public $avatar;
-    public $name;
-
 }
 
 ?>

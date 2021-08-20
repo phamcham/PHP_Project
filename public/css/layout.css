@@ -1,0 +1,9 @@
+html,
+body {
+    height: 100%;
+    background-color: rgba(233, 233, 233, 1);
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}

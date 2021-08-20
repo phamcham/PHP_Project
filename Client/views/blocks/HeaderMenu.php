@@ -2,7 +2,7 @@
 <nav class="navbar border-bottom fixed-top header">
     <div class="col-md-3 col-sm-12">
         <div class="logo-top">
-            <a href="/">
+            <a href="/PHP_Project/Client/Home">
                 <img src="/PHP_Project/public/images/logo.png" alt="tuyen sinh HaUI" style="width: 255px;"></a>
         </div>
     </div>

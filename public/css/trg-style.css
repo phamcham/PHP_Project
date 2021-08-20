@@ -1,35 +1,33 @@
-html,
-body {
-    height: 100%;
-}
-
-.login-page {
+.trg-style {
     font-size: 14px;
     align-self: center;
 }
 
-.login-page .card-wrapper {
+.trg-style .card-wrapper {
     width: 400px;
 }
 
-.login-page .card {
+.trg-style .content-wrapper {
+    width: 100%;
+}
+
+.trg-style .card {
     border-color: transparent;
     box-shadow: 0 10px 8px rgba(0, 0, 0, .15);
     border-radius: 20px;
 }
 
-.login-page .card.fat {
+.trg-style .card.fat {
     padding: 10px;
 }
 
-.login-page .card .card-title {
+.trg-style .card .card-title {
     margin-bottom: 30px;
     font-weight: bold;
 }
 
-.login-page .form-control {
+.trg-style .form-control {
     border-width: 1px;
-    border-left: 0px;
     border-radius: 10px;
 }
 
@@ -37,33 +35,33 @@ body {
     border-radius: 10px 0px 0px 10px !important;
 }
 
-.login-page .form-group label {
+.trg-style .form-group label {
     width: 100%;
 }
 
-.login-page .btn.btn-block {
+.trg-style .btn.btn-block {
     padding: 12px 10px;
     border-radius: 10px;
 }
 
-.login-page .footer {
+.trg-style .footer {
     margin: 40px 0;
     color: #888;
     text-align: center;
 }
 
 @media screen and (max-width: 425px) {
-    .login-page .card-wrapper {
+    .trg-style .card-wrapper {
         width: 90%;
         margin: 0 auto;
     }
 }
 
 @media screen and (max-width: 320px) {
-    .login-page .card.fat {
+    .trg-style .card.fat {
         padding: 0;
     }
-    .login-page .card.fat .card-body {
+    .trg-style .card.fat .card-body {
         padding: 15px;
     }
 }
