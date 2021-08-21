@@ -5,6 +5,8 @@ use Core\Model;
 use PDO;
 
 class AdmissionsYearModel extends Model{
+    public const MODEL = "AdmissionsYear";
+
     public function GetAll(){
         $sql = "select * from AdmissionsYear";
         $db = static::GetDB();

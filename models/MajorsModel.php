@@ -5,7 +5,7 @@ use Core\Model;
 use PDO;
 
 class MajorsModel extends Model{
-    public function GetMajorByID($id){
+    public function GetByID($id){
         $sql = "select * from Majors where idMajors = :id";
         $db = static::GetDB();
         $st = $db->prepare($sql);

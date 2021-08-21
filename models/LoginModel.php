@@ -4,6 +4,9 @@ namespace Models;
 use Core\Model;
 
 class LoginModel extends Model{
+
+    public const MODEL = "Login";
+
     function Add($username, $password){
         
     }
@@ -30,15 +33,3 @@ class LoginModel extends Model{
         }
     }
 }
-
-class LoginEntity{
-    public $username;
-    public $password;
-
-    public function __construct($username, $password) {
-        $this->username = $username;
-        $this->password = $password;
-    }
-}
-
-?>
