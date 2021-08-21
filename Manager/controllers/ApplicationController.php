@@ -25,7 +25,7 @@ class ApplicationController extends _ManagerController{
 
         $majorModel = $this->GetModel(_ManagerController::MANAGER_MAJORS);
         for ($i = 0; $i < count($applications); $i++){
-            $applications[$i] += ['nameMajors' => $majorModel->GetMajorByID($applications[$i]['idAdmissionsMajor'])['nameMajors']];
+            $applications[$i] += ['nameMajors' => $majorModel->GetMajorByID($applications[$i]['idMajors'])['nameMajors']];
         }
 
 
@@ -36,4 +36,17 @@ class ApplicationController extends _ManagerController{
             "applications" => $applications
         ]);
     }
+
+    function Delete($id){
+        $applicationModel = $this->GetModel(_ManagerController::MANAGER_APPLICATION);
+        if ($applicationModel->Delete($id)){
+            // xoa thanh cong
+        }
+        else{
+            // xoa that bai
+        }
+        header("Location: http://". $_SERVER['HTTP_HOST']. "/PHP_Project/Manager/Application/Index");
+    }
 }
+
+?>

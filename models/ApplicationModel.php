@@ -15,6 +15,15 @@ class ApplicationModel extends Model{
         $rows = $st->fetchAll();
         return $rows;
     }
+
+    public function Delete($id){
+        // check quyen
+        $sql = "delete from Application where idApplication = :id";
+        $db = static::GetDB();
+        $st = $db->prepare($sql);
+        $st->bindParam(":id", $id);
+        return $st->execute();
+    }
 }
 
 ?>
