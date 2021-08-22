@@ -8,11 +8,31 @@
                 <div class="card fat">
                     <div class="card-body">
                         <!-- content begin -->
-                        <h3 class="text-center fa-2x mb-lg-5">THÔNG TIN HỒ SƠ TUYỂN SINH NĂM <?php echo $curYear = $data['admissionsYear']['valueAdmissionsYear'] ?></h3>
+                        <h3 class="text-center fa-2x mb-lg-5">THÔNG TIN HỒ SƠ <font style="color: red;"><?php echo $data['application']['idApplication'] ?></font> NĂM <?php echo $curYear = $data['admissionsYear']['valueAdmissionsYear'] ?></h3>
 
                         <div class="d-flex justify-content-start align-items-center justify-content-md-between mb-md-4" >
                             <p style="color: #0d4e96; font-weight: bold; font-size: initial;">THÔNG TIN CÁ NHÂN CỦA THÍ SINH</p>
-                            <button class="btn btn-success btn-toolbar" name="update">Sửa thông tin</button>
+                            <div class="d-flex">
+                                <button class="btn btn-success btn-toolbar mr-2" name="update" onclick="jsUdpateClicked()">Sửa thông tin</button>
+                                <script>
+                                    function jsUdpateClicked() {
+                                        window.location = "http://" + "<?php echo $_SERVER['HTTP_HOST'] ?>" +
+                                            "/PHP_Project/Manager/Application/Update/" + <?php echo $data['application']['idApplication']; ?> // 
+                                    }
+                                </script>
+
+                                <button class="btn btn-danger btn-toolbar" name="update" onclick="jsDeleteClicked()">Xoá hồ sơ</button>
+                                <script>
+                                    function jsDeleteClicked() {
+                                        if (confirm('Bạn có muốn xoá hồ sơ: ' + <?php echo $data['application']['idApplication'] ?> + "?")) {
+                                            window.location = "http://" + "<?php echo $_SERVER['HTTP_HOST'] ?>" +
+                                                "/PHP_Project/Manager/Application/Delete/" + <?php echo $data['application']['idApplication']; ?> // truyen vao id application
+                                        } else {
+                                            // do nothing
+                                        }
+                                    }
+                                </script>
+                            </div>
                         </div>
 
                         <div class="d-flex">
@@ -108,7 +128,7 @@
 
                         <div class="container">
                             <div class="row">
-                                <div class="col-4">
+                                <div class="col-8">
                                     <div class="form-group input-group mb-3">
                                         <label for="address">Địa chỉ</label>
                                         <span class="input-group-text icon-text"><i class="fas fa-map-marker-alt"></i></i></span>

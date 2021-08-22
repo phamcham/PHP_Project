@@ -3,7 +3,6 @@
 namespace Models;
 
 use Core\Model;
-use PDO;
 
 class ApplicationModel extends Model
 {
@@ -39,11 +38,12 @@ class ApplicationModel extends Model
 
     public function Add($application)
     {
-        $sql = "INSERT INTO `admissionsmanagement`.`application` (`avatar`, `name`, `gender`, `birthday`, `birthplace`, `ethnic`, `identification`, `expiration`, `phoneNumber`, `email`, `address`, `idResultExam`, `idAdmissionsYear`, `idMajors`) 
-                VALUES (:avatar, :name, :gender, :birthday, :birthplace, :ethnic, :identification, :expiration, :phoneNumber, :email, :address, :idResultExam, :idAdmissionsYear, :idMajors);";
+        $sql = "INSERT INTO application (`avatar`, `name`, `gender`, `birthday`, `birthplace`, `ethnic`, `identification`, `expiration`, `phoneNumber`, `email`, `address`, `idExamResult`, `idAdmissionsYear`, `idMajors`) 
+                VALUES (:avatar, :name, :gender, :birthday, :birthplace, :ethnic, :identification, :expiration, :phoneNumber, :email, :address, :idExamResult, :idAdmissionsYear, :idMajors);";
         $db = static::GetDB();
         $st = $db->prepare($sql);
 
+        //$st->bindParam(":idApplication", $application['idApplication']);
         $st->bindParam(":avatar", $application['avatar']);
         $st->bindParam(":name", $application['name']);
         $st->bindParam(":gender", $application['gender']);
@@ -55,11 +55,19 @@ class ApplicationModel extends Model
         $st->bindParam(":phoneNumber", $application['phoneNumber']);
         $st->bindParam(":email", $application['email']);
         $st->bindParam(":address", $application['address']);
-        $st->bindParam(":idResultExam", $application['idResultExam']);
+        $st->bindParam(":idExamResult", $application['idExamResult']);
         $st->bindParam(":idAdmissionsYear", $application['idAdmissionsYear']);
         $st->bindParam(":idMajors", $application['idMajors']);
 
-        return $st->execute();
+        var_export($application);
+
+        if ($st->execute()){
+            return $db->lastInsertId();
+        }
+        else{
+            $db->rollBack();
+        }
+        return -1;
     }
 
     public function Update($application)
@@ -69,11 +77,11 @@ class ApplicationModel extends Model
             `idApplication` = :idApplication,
             `avatar` = :avatar,
             `name` = :name,
-            `gender` = :gender:,
-            `birthday` = :birthday:,
-            `birthplace` = :birthplace:,
-            `ethnic` = :ethnic:,
-            `identification` = :identification:,
+            `gender` = :gender,
+            `birthday` = :birthday,
+            `birthplace` = :birthplace,
+            `ethnic` = :ethnic,
+            `identification` = :identification,
             `expiration` = :expiration,
             `phoneNumber` = :phoneNumber,
             `email` = :email,
@@ -100,7 +108,7 @@ class ApplicationModel extends Model
         $st->bindParam(":idAdmissionsYear", $application['idAdmissionsYear']);
         $st->bindParam(":idMajors", $application['idMajors']);
 
-        $st->bindParam(":avatar", $application['idApplication']);
+        $st->bindParam(":idApplication", $application['idApplication']);
 
         return $st->execute();
     }

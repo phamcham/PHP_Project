@@ -94,25 +94,78 @@ class ApplicationController extends _ManagerController
     }
 
     // hien man hinh add applicaion
-    function Add($idYear = -1)
+    function Add($idYear)
     {
-        // nam hien tai mac dinh la nam moi nhat
-        $years = $this->admissionsYearModel->GetAll();
-        $curYear = $years[0];
-        if ($idYear == -1) {
-            foreach ($years as $year) {
-                if ($year['valueAdmissionsYear'] > $curYear['valueAdmissionsYear']) {
-                    $curYear = $year;
+        if (isset($_POST['cancelAddApplication']) && $_POST['cancelAddApplication'] != "") {
+            header("Location: http://" . $_SERVER['HTTP_HOST'] . "/PHP_Project/Manager/Application/Index");
+        }
+        else if (isset($_POST['addApplication']) && $_POST['addApplication'] != "") {
+            $application = array();
+            $dummyExamResult = [
+                'idExamResult' => 1,
+                'nguVan' => 0,
+                'toan' => 0,
+                'ngoaiNgu' => 0,
+                'vatLy' => 0,
+                'hoaHoc' => 0,
+                'sinhHoc' => 0,
+                'lichSu' => 0,
+                'diaLy' => 0,
+                'gdcd' => 0,
+                'diemCong' => 0
+            ];
+
+            if (($application['idExamResult'] = $this->examResultModel->Add($dummyExamResult)) != -1) {
+                //echo "aaaaaaaa: " . $application['idExamResult'];
+                $application['avatar'] = isset($_POST['avatar']) ? $_POST['avatar'] : "";
+                $application['name'] = $_POST['name'];
+                $application['gender'] = $_POST['gender'] == "male" ? 1 : 0;
+                $application['birthday'] = $_POST['birthday'];
+                $application['birthplace'] = $_POST['birthplace'];
+                $application['ethnic'] = $_POST['ethnic'];
+                $application['identification'] = $_POST['identification'];
+                $application['expiration'] = $_POST['expiration'];
+                $application['phoneNumber'] = $_POST['phoneNumber'];
+                $application['email'] = $_POST['email'];
+                $application['address'] = $_POST['address'];
+
+                $application['idAdmissionsYear'] = $idYear;
+                $application['idMajors'] = $_POST['idMajors'];
+
+                if (($idApplication = $this->applicationModel->Add($application)) != -1) {
+                    // them thanh cong
+
+                    //header("Location: http://" . $_SERVER['HTTP_HOST'] . "/PHP_Project/Manager/Application/Detail/" . $application['idApplication']);
+                    echo '<script>alert("Thêm hồ sơ thành công");'
+                        . 'location = "http://'
+                        . $_SERVER['HTTP_HOST']
+                        . '/PHP_Project/Manager/Application/Detail/'
+                        . $idApplication . '"'
+                        . '</script>';
+                } else {
+                    echo '<script>alert("BUGGGGGGGGGGGGGGGGGG UPDATE APPLICATION!!!!!")</script>';
                 }
             }
-            $idYear = $curYear['idAdmissionsYear'];
         } else {
-            $curYear = $this->admissionsYearModel->GetYear($idYear);
-        }
+            // du lieu thi sinh
+            $year = $this->admissionsYearModel->GetYear($idYear);
 
-        $this->RenderView(self::VIEW_ADD_APPLICATION, [
-            "admissionsYear" => $curYear
-        ]);
+            // du lieu cbox
+            $admissionsMajors = $this->admissionsMajorModel->GetByYearID($year['idAdmissionsYear']); // nganh tuyen sinh trong nam hoc do
+            foreach ($admissionsMajors as &$m) {
+                $nameMajor = $this->majorsModel->GetByID($m['idMajors'])['nameMajors'];
+                $m['nameMajors'] = $nameMajor;
+            }
+            unset($m);
+
+            $this->RenderView(self::VIEW_ADD_APPLICATION, [
+                "admissionsMajors" => $admissionsMajors,
+                "admissionsYear" => $year
+                //"examResult" => $exam
+            ]);
+        }
+        unset($_POST['addApplication']);
+        unset($_POST['cancelAddApplication']);
     }
 
     function Detail($id)
@@ -126,7 +179,7 @@ class ApplicationController extends _ManagerController
             $major['nameMajors'] = $nameMajor;
         }
         unset($major);
-        
+
         //$exam = self::$examResultModel->GetByID();
 
         $this->RenderView(self::VIEW_DETAIL_APPLICATION, [
@@ -136,5 +189,68 @@ class ApplicationController extends _ManagerController
             "admissionsYear" => $year
             //"examResult" => $exam
         ]);
+    }
+
+    function Update($id)
+    {
+        if (isset($_POST['cancelUpdateApplication']) && $_POST['cancelUpdateApplication'] != "") {
+            header("Location: http://" . $_SERVER['HTTP_HOST'] . "/PHP_Project/Manager/Application/Detail/" . $id);
+        }
+        if (isset($_POST['updateApplication']) && $_POST['updateApplication'] != "") {
+
+            $application = array();
+
+            $application['idApplication'] = $id;
+            $application['avatar'] = isset($_POST['avatar']) ? $_POST['avatar'] : "";
+            $application['name'] = $_POST['name'];
+            $application['gender'] = $_POST['gender'] == "male" ? 1 : 0;
+            $application['birthday'] = $_POST['birthday'];
+            $application['birthplace'] = $_POST['birthplace'];
+            $application['ethnic'] = $_POST['ethnic'];
+            $application['identification'] = $_POST['identification'];
+            $application['expiration'] = $_POST['expiration'];
+            $application['phoneNumber'] = $_POST['phoneNumber'];
+            $application['email'] = $_POST['email'];
+            $application['address'] = $_POST['address'];
+            $application['idResultExam'] = $this->applicationModel->Get($id)['idResultExam'];
+            $application['idAdmissionsYear'] = $this->applicationModel->Get($id)['idAdmissionsYear'];
+            $application['idMajors'] = $_POST['idMajors'];
+
+            if ($this->applicationModel->Update($application)) {
+                // cap nhat thanh cong
+
+                //header("Location: http://" . $_SERVER['HTTP_HOST'] . "/PHP_Project/Manager/Application/Detail/" . $application['idApplication']);
+                echo '<script>alert("Cập nhật thông tin thành công");'
+                    . 'location = "http://'
+                    . $_SERVER['HTTP_HOST']
+                    . '/PHP_Project/Manager/Application/Detail/'
+                    . $id . '"'
+                    . '</script>';
+            } else {
+                echo '<script>alert("BUGGGGGGGGGGGGGGGGGG UPDATE APPLICATION!!!!!")</script>';
+            }
+        } else {
+            // du lieu thi sinh
+            $appl = $this->applicationModel->Get($id);
+            $year = $this->admissionsYearModel->GetYear($appl['idAdmissionsYear']);
+            $major = $this->majorsModel->GetByID($appl['idMajors']);
+
+            // du lieu cbox
+            $admissionsMajors = $this->admissionsMajorModel->GetByYearID($year['idAdmissionsYear']); // nganh tuyen sinh trong nam hoc do
+            foreach ($admissionsMajors as &$m) {
+                $nameMajor = $this->majorsModel->GetByID($m['idMajors'])['nameMajors'];
+                $m['nameMajors'] = $nameMajor;
+            }
+            unset($m);
+
+            $this->RenderView(self::VIEW_UPDATE_APPLICATION, [
+                "application" => $appl,
+                "major" => $major,
+                "admissionsMajors" => $admissionsMajors,
+                "admissionsYear" => $year
+                //"examResult" => $exam
+            ]);
+        }
+        unset($_POST['updateApplication']);
     }
 }

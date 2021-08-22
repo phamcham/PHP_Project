@@ -47,7 +47,6 @@
                             </script>
 
                             <div class="d-flex align-items-center">
-                                <label for="search" style="margin: 0px 10px; font-size: medium; white-space: nowrap;">Tìm kiếm:</label>
                                 <input id="search" name="search" type="text" placeholder="Tìm kiếm" class="form-control" value="<?php echo $data['search']; ?>">
                                 <button class="btn btn-info btn-toolbar ml-2" onclick="jsSearchClicked(this)">Tìm kiếm</button>
                                 <script>

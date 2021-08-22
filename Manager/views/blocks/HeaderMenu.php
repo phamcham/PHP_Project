@@ -7,7 +7,7 @@
         </div>
     </div>
     <div class="col-md-9">
-        <div class="mainmenu-area pull-right">
+        <div class="mainmenu-area d-flex justify-content-end">
             <div class="mainmenu hidden-sm hidden-xs">
                 <nav>
                     <ul id="nav">
