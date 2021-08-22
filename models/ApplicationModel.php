@@ -59,15 +59,14 @@ class ApplicationModel extends Model
         $st->bindParam(":idAdmissionsYear", $application['idAdmissionsYear']);
         $st->bindParam(":idMajors", $application['idMajors']);
 
-        var_export($application);
-
         if ($st->execute()){
             return $db->lastInsertId();
         }
         else{
             $db->rollBack();
+            return -1;
         }
-        return -1;
+        
     }
 
     public function Update($application)
@@ -86,7 +85,7 @@ class ApplicationModel extends Model
             `phoneNumber` = :phoneNumber,
             `email` = :email,
             `address` = :address,
-            `idResultExam` = :idResultExam,
+            `idExamResult` = :idExamResult,
             `idAdmissionsYear` = :idAdmissionsYear,
             `idMajors` = :idMajors
             WHERE `idApplication` = :idApplication;";
@@ -104,7 +103,7 @@ class ApplicationModel extends Model
         $st->bindParam(":phoneNumber", $application['phoneNumber']);
         $st->bindParam(":email", $application['email']);
         $st->bindParam(":address", $application['address']);
-        $st->bindParam(":idResultExam", $application['idResultExam']);
+        $st->bindParam(":idExamResult", $application['idExamResult']);
         $st->bindParam(":idAdmissionsYear", $application['idAdmissionsYear']);
         $st->bindParam(":idMajors", $application['idMajors']);
 

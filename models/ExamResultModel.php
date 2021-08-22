@@ -22,7 +22,7 @@ class ExamResultModel extends Model{
         $db = static::GetDB();
         $st = $db->prepare($sql);
 
-        //$st->bindParam(":idResultExam", $examResult['idResultExam']);
+        //$st->bindParam(":idExamResult", $examResult['idExamResult']);
         $st->bindParam(":nguVan", $examResult['nguVan']);
         $st->bindParam(":toan", $examResult['toan']);
         $st->bindParam(":ngoaiNgu", $examResult['ngoaiNgu']);

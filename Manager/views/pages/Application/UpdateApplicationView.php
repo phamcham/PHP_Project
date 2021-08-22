@@ -23,7 +23,7 @@
                             </div>
                         </div>
 
-                        <form action="/PHP_Project/Manager/Application/Update/25421" method="POST">
+                        <form action="/PHP_Project/Manager/Application/Update/<?php echo $data['application']['idApplication'] ?>" method="POST">
                             <div class="container">
                                 <div class="row">
                                     <div class="col-4">

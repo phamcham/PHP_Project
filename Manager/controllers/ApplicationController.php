@@ -212,7 +212,7 @@ class ApplicationController extends _ManagerController
             $application['phoneNumber'] = $_POST['phoneNumber'];
             $application['email'] = $_POST['email'];
             $application['address'] = $_POST['address'];
-            $application['idResultExam'] = $this->applicationModel->Get($id)['idResultExam'];
+            $application['idExamResult'] = $this->applicationModel->Get($id)['idExamResult'];
             $application['idAdmissionsYear'] = $this->applicationModel->Get($id)['idAdmissionsYear'];
             $application['idMajors'] = $_POST['idMajors'];
 
