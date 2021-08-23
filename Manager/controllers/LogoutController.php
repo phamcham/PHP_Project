@@ -3,8 +3,8 @@
 namespace Manager\Controllers;
 
 use Client\Controllers\_ClientController;
-require_once "./Client/controllers/HomeController.php";
 use Client\Controllers\HomeController;
+use Core\Utility;
 
 class LogoutController extends _ManagerController{
     function Index(){
@@ -13,7 +13,7 @@ class LogoutController extends _ManagerController{
         unset($_SESSION['password']);
         // view
         $this->RenderViewPermission(_ClientController::PER_CLIENT, HomeController::VIEW_HOME);
-        header("Location: http://". $_SERVER['HTTP_HOST']. "/PHP_Project/Client/Home");
+        Utility::Redirect("Client", "Home");
     }
 }
 

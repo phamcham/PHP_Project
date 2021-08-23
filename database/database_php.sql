@@ -26,8 +26,8 @@ DROP TABLE IF EXISTS `AdmissionsManagement`.`Account` ;
 CREATE TABLE IF NOT EXISTS `AdmissionsManagement`.`Account` (
   `username` NVARCHAR(20) NOT NULL,
   `password` VARCHAR(32) NOT NULL,
-  `name` NVARCHAR(45) NOT NULL,
-  `phoneNumber` VARCHAR(45) NOT NULL,
+  `name` NVARCHAR(45) NULL,
+  `phoneNumber` VARCHAR(45) NULL,
   `role` VARCHAR(45) NOT NULL,
   `status` INT NOT NULL,
   PRIMARY KEY (`username`))

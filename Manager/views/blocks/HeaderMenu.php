@@ -12,23 +12,29 @@
                 <nav>
                     <ul id="nav">
                         <li id="Home">
-                            <a <?php if ($view == "HomeView") echo 'class="active"' ?>
-                            href="/PHP_Project/Manager/Home">Trang chủ</a></li>
+                            <a <?php if ($view == "Home/HomeView") echo 'class="active"' ?> href="/PHP_Project/Manager/Home">Trang chủ</a>
+                        </li>
                         <li id="Application">
-                            <a <?php if ($view == "ApplicationView") echo 'class="active"' ?>
-                            href="/PHP_Project/Manager/Application">Hồ sơ</a></li>
+                            <a <?php if ($view == "Application/ApplicationView") echo 'class="active"' ?> href="/PHP_Project/Manager/Application">Hồ sơ</a>
+                        </li>
                         <li id="ExamResult">
-                            <a <?php if ($view == "ExamResultView") echo 'class="active"' ?>
-                            href="/PHP_Project/Manager/ExamResult">Điểm thi</a></li>
+                            <a <?php if ($view == "ExamResult/ExamResultView") echo 'class="active"' ?> href="/PHP_Project/Manager/ExamResult">Điểm thi</a>
+                        </li>
+                        <li id="Majors">
+                            <a <?php if ($view == "Majors/MajorsView") echo 'class="active"' ?> href="/PHP_Project/Manager/Majors">Ngành học</a>
+                        </li>
+                        <li id="AdmissionsMajor">
+                            <a <?php if ($view == "AdmissionsMajor/AdmissionsMajorView") echo 'class="active"' ?> href="/PHP_Project/Manager/AdmissionsMajor">Ngành tuyển sinh</a>
+                        </li>
                         <li id="Account">
-                            <a <?php if ($view == "AccountView") echo 'class="active"' ?>
-                            href="/PHP_Project/Manager/Account">Tài khoản</a></li>
+                            <a <?php if ($view == "Account/AccountView") echo 'class="active"' ?> href="/PHP_Project/Manager/Account">Tài khoản</a>
+                        </li>
                         <li id="Logout">
-                            <a <?php if ($view == "LogoutView") echo 'class="active"' ?>
-                            href="/PHP_Project/Manager/Logout">Đăng xuất</a></li>
+                            <a href="/PHP_Project/Manager/Logout">Đăng xuất</a>
+                        </li>
 
                         <!-- neu co thang dang nhap thanh cong thi them icon here -->
-                        
+
 
                         <!-- <li class="active"><a class="active" href="/login">Đăng nhập</a></li> -->
                     </ul>

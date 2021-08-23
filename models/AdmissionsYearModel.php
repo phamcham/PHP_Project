@@ -17,7 +17,7 @@ class AdmissionsYearModel extends Model{
     }
 
     public function GetYear($idYear){
-        $sql = "select * from AdmissionsYear where idAdmissionsYear = :id";
+        $sql = "SELECT * from AdmissionsYear where idAdmissionsYear = :id";
         $db = static::GetDB();
         
         $st = $db->prepare($sql);

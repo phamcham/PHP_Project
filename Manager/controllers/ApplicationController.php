@@ -2,6 +2,7 @@
 
 namespace Manager\Controllers;
 
+use Core\Utility;
 use Models\AdmissionsMajorModel;
 use Models\AdmissionsYearModel;
 use Models\ApplicationModel;
@@ -90,16 +91,15 @@ class ApplicationController extends _ManagerController
         } else {
             // xoa that bai
         }
-        header("Location: http://" . $_SERVER['HTTP_HOST'] . "/PHP_Project/Manager/Application/Index");
+        Utility::Redirect("Manager", "Application");
     }
 
     // hien man hinh add applicaion
     function Add($idYear)
     {
         if (isset($_POST['cancelAddApplication']) && $_POST['cancelAddApplication'] != "") {
-            header("Location: http://" . $_SERVER['HTTP_HOST'] . "/PHP_Project/Manager/Application/Index");
-        }
-        else if (isset($_POST['addApplication']) && $_POST['addApplication'] != "") {
+            Utility::Redirect("Manager", "Application");
+        } else if (isset($_POST['addApplication']) && $_POST['addApplication'] != "") {
             $application = array();
             $dummyExamResult = [
                 'idExamResult' => 1,
@@ -134,14 +134,7 @@ class ApplicationController extends _ManagerController
 
                 if (($idApplication = $this->applicationModel->Add($application)) != -1) {
                     // them thanh cong
-
-                    //header("Location: http://" . $_SERVER['HTTP_HOST'] . "/PHP_Project/Manager/Application/Detail/" . $application['idApplication']);
-                    echo '<script>alert("Thêm hồ sơ thành công");'
-                        . 'location = "http://'
-                        . $_SERVER['HTTP_HOST']
-                        . '/PHP_Project/Manager/Application/Detail/'
-                        . $idApplication . '"'
-                        . '</script>';
+                    Utility::AlertRedirect("Thêm hồ sơ thành công", "Manager", "Application", "Detail", [$idApplication]);
                 } else {
                     echo '<script>alert("BUGGGGGGGGGGGGGGGGGG UPDATE APPLICATION!!!!!")</script>';
                 }
@@ -194,7 +187,8 @@ class ApplicationController extends _ManagerController
     function Update($id)
     {
         if (isset($_POST['cancelUpdateApplication']) && $_POST['cancelUpdateApplication'] != "") {
-            header("Location: http://" . $_SERVER['HTTP_HOST'] . "/PHP_Project/Manager/Application/Detail/" . $id);
+            //header("Location: http://" . $_SERVER['HTTP_HOST'] . "/PHP_Project/Manager/Application/Detail/" . $id);
+            Utility::Redirect("Manager", "Application", "Detail", [$id]);
         }
         if (isset($_POST['updateApplication']) && $_POST['updateApplication'] != "") {
 
@@ -219,13 +213,7 @@ class ApplicationController extends _ManagerController
             if ($this->applicationModel->Update($application)) {
                 // cap nhat thanh cong
 
-                //header("Location: http://" . $_SERVER['HTTP_HOST'] . "/PHP_Project/Manager/Application/Detail/" . $application['idApplication']);
-                echo '<script>alert("Cập nhật thông tin thành công");'
-                    . 'location = "http://'
-                    . $_SERVER['HTTP_HOST']
-                    . '/PHP_Project/Manager/Application/Detail/'
-                    . $id . '"'
-                    . '</script>';
+                Utility::AlertRedirect("Cập nhật thông tin thành công", "Manager", "Application", "Detail", [$id]);
             } else {
                 echo '<script>alert("BUGGGGGGGGGGGGGGGGGG UPDATE APPLICATION!!!!!")</script>';
             }

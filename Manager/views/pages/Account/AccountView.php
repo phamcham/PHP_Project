@@ -22,16 +22,16 @@
                                 </div>
                                 <div class="col-4">
                                     <div class="form-group input-group mb-3">
-                                        <label for="name">Số điện thoại</label>
+                                        <label for="phoneNumber">Số điện thoại</label>
                                         <span class="input-group-text icon-text"><i class="fas fa-phone-alt"></i></span>
-                                        <input id="name" type="text" class="form-control" name="name" disabled value="<?php echo $data['account']['phoneNumber'] ?>">
+                                        <input id="phoneNumber" type="text" class="form-control" name="phoneNumber" disabled value="<?php echo $data['account']['phoneNumber'] ?>">
                                     </div>
                                 </div>
                                 <div class="col-4">
                                     <div class="form-group input-group mb-3">
-                                        <label for="name">Vai trò</label>
+                                        <label for="role">Vai trò</label>
                                         <span class="input-group-text icon-text"><i class="fas fa-user-check"></i></span>
-                                        <input id="name" type="text" class="form-control" name="name" disabled value="<?php echo $data['account']['role'] ?>">
+                                        <input id="role" type="text" class="form-control" name="role" disabled value="<?php echo $data['account']['role'] ?>">
                                     </div>
                                 </div>
                             </div>
@@ -40,13 +40,26 @@
 
                             <div class="col-4">
                                 <div class="form-group input-group">
-                                    <input type="button" class="btn btn-info btn-toolbar" name="changeInfo" value="Thay đổi thông tin cá nhân">
+                                    <input type="button" class="btn btn-info btn-toolbar" value="Thay đổi thông tin cá nhân" onclick="jsChangeAccountInfo()">
+                                    <script>
+                                        function jsChangeAccountInfo() {
+                                            window.location = "http://" + "<?php echo $_SERVER['HTTP_HOST'] ?>" +
+                                                "/PHP_Project/Manager/Account/UpdateAccountInfo";
+
+                                        }
+                                    </script>
                                 </div>
                             </div>
                             <div class="col-4">
                                 <div class="form-group input-group">
-                                    <input type="button" class="btn btn-danger btn-toolbar" name="changePassword" value="Đổi mật khẩu">
+                                    <input type="button" class="btn btn-danger btn-toolbar" value="Đổi mật khẩu" onclick="jsChangeAccountPassword()">
                                 </div>
+                                <script>
+                                    function jsChangeAccountPassword() {
+                                        window.location = "http://" + "<?php echo $_SERVER['HTTP_HOST'] ?>" +
+                                            "/PHP_Project/Manager/Account/UpdateAccountPassword";
+                                    }
+                                </script>
                             </div>
 
                             <!-- used by admin -->
@@ -82,18 +95,41 @@
                                         echo '<td>';
                                         // button 
                                         echo '<button class="btn btn-danger btn-toolbar d-inline-block mr-md-2"';
-                                        echo 'name = "deleteAccount" onclick="jsDeleteAccountClicked(this)">Xoá</button>';
+                                        echo 'name = "' . $acc['username'] . '" onclick="jsDeleteAccountClicked(this)">Xoá</button>';
                                         // button 
                                         echo '<button class="btn btn-info btn-toolbar d-inline-block"';
-                                        echo 'name = "deleteAccount" onclick="jsDeleteAccountClicked(this)">Trạng thái</button>';
-                               
+                                        echo 'name = "' . $acc['username'] . '" onclick="jsChangeAccountStatusClicked(this)">Trạng thái</button>';
+
                                         echo '</td>';
                                         echo '</tr>';
                                     }
                                     unset($appl);
                                     ?>
+                                    <script>
+                                        function jsDeleteAccountClicked(content) {
+                                            if (confirm("Xoá tài khoản?")) {
+                                                window.location = "http://" + "<?php echo $_SERVER['HTTP_HOST'] ?>" +
+                                                    "/PHP_Project/Manager/Account/DeleteAnAccount/" + content.name;
+                                            }
+                                        }
+
+                                        function jsChangeAccountStatusClicked(content) {
+                                            window.location = "http://" + "<?php echo $_SERVER['HTTP_HOST'] ?>" +
+                                                "/PHP_Project/Manager/Account/UpdateStatusAnAccount/" + content.name;
+                                        }
+                                    </script>
                                 </tbody>
                             </table>
+
+                            <div class="justify-content-end d-flex">
+                                <input type="button" class="btn btn-success btn-toolbar" value="Thêm mới tài khoản" onclick="jsAddAccount()">
+                                <script>
+                                    function jsAddAccount() {
+                                        window.location = "http://" + "<?php echo $_SERVER['HTTP_HOST'] ?>" +
+                                            "/PHP_Project/Manager/Account/Add";
+                                    }
+                                </script>
+                            </div>
                         </div>
                     </div>
                 </div>
