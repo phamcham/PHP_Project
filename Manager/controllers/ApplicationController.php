@@ -3,6 +3,7 @@
 namespace Manager\Controllers;
 
 use Core\Utility;
+use Core\ExcelExporter;
 use Models\AdmissionsMajorModel;
 use Models\AdmissionsYearModel;
 use Models\ApplicationModel;
@@ -94,49 +95,108 @@ class ApplicationController extends _ManagerController
         Utility::Redirect("Manager", "Application");
     }
 
+    function Validate()
+    {
+        if (!isset($_POST['name']) || trim($_POST['name']) == "")
+            return "Chưa nhập họ và tên";
+
+        if ($_POST['gender'] == "unknown")
+            return "Chưa chọn giới tính";
+
+        if (!isset($_POST['birthday']) || trim($_POST['birthday']) == "")
+            return "Chưa nhập ngày sinh";
+
+        if (!isset($_POST['birthplace']) || trim($_POST['birthplace']) == "")
+            return "Chưa nhập nơi sinh";
+
+        if (!isset($_POST['ethnic']) || trim($_POST['ethnic']) == "")
+            return "Chưa nhập dân tộc";
+
+        if (!isset($_POST['phoneNumber']) || trim($_POST['phoneNumber']) == "")
+            return "Chưa nhập số điện thoại";
+
+        if (!isset($_POST['identification']) || trim($_POST['identification']) == "")
+            return "Chưa nhập số CMND/CCCD";
+
+        if (!isset($_POST['expiration']) || trim($_POST['expiration']) == "")
+            return "Chưa nhập ngày hết hạn CMMD/CCCD";
+
+        if (!isset($_POST['email']) || trim($_POST['email']) == "")
+            return "Chưa nhập email";
+
+        if (!isset($_POST['address']) || trim($_POST['address']) == "")
+            return "Chưa nhập địa chỉ";
+
+        if ($_POST['idMajors'] == "unknown")
+            return "Chưa chọn ngành học";
+
+        return null;
+    }
+
     // hien man hinh add applicaion
     function Add($idYear)
     {
         if (isset($_POST['cancelAddApplication']) && $_POST['cancelAddApplication'] != "") {
             Utility::Redirect("Manager", "Application");
         } else if (isset($_POST['addApplication']) && $_POST['addApplication'] != "") {
-            $application = array();
-            $dummyExamResult = [
-                'idExamResult' => 1,
-                'nguVan' => 0,
-                'toan' => 0,
-                'ngoaiNgu' => 0,
-                'vatLy' => 0,
-                'hoaHoc' => 0,
-                'sinhHoc' => 0,
-                'lichSu' => 0,
-                'diaLy' => 0,
-                'gdcd' => 0,
-                'diemCong' => 0
-            ];
 
-            if (($application['idExamResult'] = $this->examResultModel->Add($dummyExamResult)) != -1) {
-                //echo "aaaaaaaa: " . $application['idExamResult'];
-                $application['avatar'] = isset($_POST['avatar']) ? $_POST['avatar'] : "";
-                $application['name'] = $_POST['name'];
-                $application['gender'] = $_POST['gender'] == "male" ? 1 : 0;
-                $application['birthday'] = $_POST['birthday'];
-                $application['birthplace'] = $_POST['birthplace'];
-                $application['ethnic'] = $_POST['ethnic'];
-                $application['identification'] = $_POST['identification'];
-                $application['expiration'] = $_POST['expiration'];
-                $application['phoneNumber'] = $_POST['phoneNumber'];
-                $application['email'] = $_POST['email'];
-                $application['address'] = $_POST['address'];
+            // =null la 
+            if (($reasonFailed = $this->Validate()) != null) {
+                // du lieu thi sinh
+                $year = $this->admissionsYearModel->GetYear($idYear);
 
-                $application['idAdmissionsYear'] = $idYear;
-                $application['idMajors'] = $_POST['idMajors'];
+                // du lieu cbox
+                $admissionsMajors = $this->admissionsMajorModel->GetByYearID($year['idAdmissionsYear']); // nganh tuyen sinh trong nam hoc do
+                foreach ($admissionsMajors as &$m) {
+                    $nameMajor = $this->majorsModel->GetByID($m['idMajors'])['nameMajors'];
+                    $m['nameMajors'] = $nameMajor;
+                }
+                unset($m);
 
-                if (($idApplication = $this->applicationModel->Add($application)) != -1) {
-                    // them thanh cong
-                    Utility::AlertRedirect("Thêm hồ sơ thành công", "Manager", "Application", "Detail", [$idApplication]);
-                } else {
-                    echo '<script>alert("BUGGGGGGGGGGGGGGGGGG UPDATE APPLICATION!!!!!")</script>';
+                $this->RenderView(self::VIEW_ADD_APPLICATION, [
+                    "admissionsMajors" => $admissionsMajors,
+                    "admissionsYear" => $year,
+                    "reasonFailed" => $reasonFailed
+                ]);
+            } else {
+                $application = array();
+                $dummyExamResult = [
+                    'idExamResult' => 1,
+                    'nguVan' => 0,
+                    'toan' => 0,
+                    'ngoaiNgu' => 0,
+                    'vatLy' => 0,
+                    'hoaHoc' => 0,
+                    'sinhHoc' => 0,
+                    'lichSu' => 0,
+                    'diaLy' => 0,
+                    'gdcd' => 0,
+                    'diemCong' => 0
+                ];
+
+                if (($application['idExamResult'] = $this->examResultModel->Add($dummyExamResult)) != -1) {
+                    //echo "aaaaaaaa: " . $application['idExamResult'];
+                    $application['avatar'] = isset($_POST['avatar']) ? $_POST['avatar'] : "";
+                    $application['name'] = $_POST['name'];
+                    $application['gender'] = $_POST['gender'] == "male" ? 1 : 0;
+                    $application['birthday'] = $_POST['birthday'];
+                    $application['birthplace'] = $_POST['birthplace'];
+                    $application['ethnic'] = $_POST['ethnic'];
+                    $application['identification'] = $_POST['identification'];
+                    $application['expiration'] = $_POST['expiration'];
+                    $application['phoneNumber'] = $_POST['phoneNumber'];
+                    $application['email'] = $_POST['email'];
+                    $application['address'] = $_POST['address'];
+
+                    $application['idAdmissionsYear'] = $idYear;
+                    $application['idMajors'] = $_POST['idMajors'];
+
+                    if (($idApplication = $this->applicationModel->Add($application)) != -1) {
+                        // them thanh cong
+                        Utility::AlertRedirect("Thêm hồ sơ thành công", "Manager", "Application", "Detail", [$idApplication]);
+                    } else {
+                        echo '<script>alert("BUGGGGGGGGGGGGGGGGGG UPDATE APPLICATION!!!!!")</script>';
+                    }
                 }
             }
         } else {
@@ -173,14 +233,16 @@ class ApplicationController extends _ManagerController
         }
         unset($major);
 
-        //$exam = self::$examResultModel->GetByID();
+        $exam = null;
+        if (isset($appl['idExamResult']) && trim($appl['idExamResult']) != "")
+            $exam = $this->examResultModel->GetByID($appl['idExamResult']);
 
         $this->RenderView(self::VIEW_DETAIL_APPLICATION, [
             "application" => $appl,
             //"major" => $major,
             "admissionsMajors" => $admissionsMajors,
-            "admissionsYear" => $year
-            //"examResult" => $exam
+            "admissionsYear" => $year,
+            "examResult" => $exam
         ]);
     }
 
@@ -192,32 +254,56 @@ class ApplicationController extends _ManagerController
         }
         if (isset($_POST['updateApplication']) && $_POST['updateApplication'] != "") {
 
-            $application = array();
+            if (($reasonFailed = $this->Validate()) != null) {
+                // du lieu thi sinh
+                $appl = $this->applicationModel->Get($id);
+                $year = $this->admissionsYearModel->GetYear($appl['idAdmissionsYear']);
+                $major = $this->majorsModel->GetByID($appl['idMajors']);
 
-            $application['idApplication'] = $id;
-            $application['avatar'] = isset($_POST['avatar']) ? $_POST['avatar'] : "";
-            $application['name'] = $_POST['name'];
-            $application['gender'] = $_POST['gender'] == "male" ? 1 : 0;
-            $application['birthday'] = $_POST['birthday'];
-            $application['birthplace'] = $_POST['birthplace'];
-            $application['ethnic'] = $_POST['ethnic'];
-            $application['identification'] = $_POST['identification'];
-            $application['expiration'] = $_POST['expiration'];
-            $application['phoneNumber'] = $_POST['phoneNumber'];
-            $application['email'] = $_POST['email'];
-            $application['address'] = $_POST['address'];
-            $application['idExamResult'] = $this->applicationModel->Get($id)['idExamResult'];
-            $application['idAdmissionsYear'] = $this->applicationModel->Get($id)['idAdmissionsYear'];
-            $application['idMajors'] = $_POST['idMajors'];
+                // du lieu cbox
+                $admissionsMajors = $this->admissionsMajorModel->GetByYearID($year['idAdmissionsYear']); // nganh tuyen sinh trong nam hoc do
+                foreach ($admissionsMajors as &$m) {
+                    $nameMajor = $this->majorsModel->GetByID($m['idMajors'])['nameMajors'];
+                    $m['nameMajors'] = $nameMajor;
+                }
+                unset($m);
 
-            if ($this->applicationModel->Update($application)) {
-                // cap nhat thanh cong
-
-                Utility::AlertRedirect("Cập nhật thông tin thành công", "Manager", "Application", "Detail", [$id]);
+                $this->RenderView(self::VIEW_UPDATE_APPLICATION, [
+                    "application" => $appl,
+                    "major" => $major,
+                    "admissionsMajors" => $admissionsMajors,
+                    "admissionsYear" => $year,
+                    "reasonFailed" => $reasonFailed
+                ]);
             } else {
-                echo '<script>alert("BUGGGGGGGGGGGGGGGGGG UPDATE APPLICATION!!!!!")</script>';
+                $application = array();
+
+                $application['idApplication'] = $id;
+                $application['avatar'] = isset($_POST['avatar']) ? $_POST['avatar'] : "";
+                $application['name'] = $_POST['name'];
+                $application['gender'] = $_POST['gender'] == "male" ? 1 : 0;
+                $application['birthday'] = $_POST['birthday'];
+                $application['birthplace'] = $_POST['birthplace'];
+                $application['ethnic'] = $_POST['ethnic'];
+                $application['identification'] = $_POST['identification'];
+                $application['expiration'] = $_POST['expiration'];
+                $application['phoneNumber'] = $_POST['phoneNumber'];
+                $application['email'] = $_POST['email'];
+                $application['address'] = $_POST['address'];
+                $application['idExamResult'] = $this->applicationModel->Get($id)['idExamResult'];
+                $application['idAdmissionsYear'] = $this->applicationModel->Get($id)['idAdmissionsYear'];
+                $application['idMajors'] = $_POST['idMajors'];
+
+                if ($this->applicationModel->Update($application)) {
+                    // cap nhat thanh cong
+
+                    Utility::AlertRedirect("Cập nhật thông tin thành công", "Manager", "Application", "Detail", [$id]);
+                } else {
+                    echo '<script>alert("BUGGGGGGGGGGGGGGGGGG UPDATE APPLICATION!!!!!")</script>';
+                }
             }
         } else {
+
             // du lieu thi sinh
             $appl = $this->applicationModel->Get($id);
             $year = $this->admissionsYearModel->GetYear($appl['idAdmissionsYear']);
@@ -240,5 +326,40 @@ class ApplicationController extends _ManagerController
             ]);
         }
         unset($_POST['updateApplication']);
+    }
+
+    function ReportExcel($idYear){
+        //ExcelExporter::Export("hehe", ['a', 'b'], [[1, 2], [3, 4]]);
+        $fileName = "Application";
+        $title = "DANH SÁCH HỒ SƠ TUYỂN SINH NĂM " . $this->admissionsYearModel->GetYear($idYear)['valueAdmissionsYear'];
+        $fields = ['STT', 'Mã hồ sơ', 'Họ và tên thí sinh', 'Giới tính', 'Ngày sinh', 'Nơi sinh',
+            'Dân tộc', 'Số điện thoại', 'Số CMND/CCCD', 'Ngày hết hạn', 'Email', 'Địa chỉ', 'Ngành học'];
+
+        $dataTable = array();
+        $data = $this->applicationModel->GetAll();
+        $data = array_filter($data, function ($value, $key) use ($idYear) {
+            return ($value['idAdmissionsYear'] == $idYear);
+        }, ARRAY_FILTER_USE_BOTH);
+
+
+        for ($i = 0; $i < count($data); $i++){
+            array_push($dataTable, [
+                $i + 1,
+                $data[$i]['idApplication'],
+                $data[$i]['name'],
+                $data[$i]['gender'],
+                $data[$i]['birthday'],
+                $data[$i]['birthplace'],
+                $data[$i]['ethnic'],
+                $data[$i]['phoneNumber'],
+                $data[$i]['identification'],
+                $data[$i]['expiration'],
+                $data[$i]['email'],
+                $data[$i]['address'],
+                $this->majorsModel->GetByID($data[$i]['idMajors'])['nameMajors']
+            ]);
+        }
+        
+        ExcelExporter::Export($fileName, $title, $fields, $dataTable);
     }
 }

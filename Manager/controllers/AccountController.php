@@ -155,57 +155,51 @@ class AccountController extends _ManagerController
     {
         if ($this->accountModel->Delete($username)) {
             Utility::AlertRedirect("Xoá tài khoản thành công!", "Manager", "Account");
+        } else {
+            Utility::Redirect("Manager", "Account");
         }
-        Utility::Redirect("Manager", "Account");
     }
 
     // use post
-    function Add(){
+    function Add()
+    {
         if (isset($_POST['cancelAddAccount']) && trim($_POST['cancelAddAccount']) != "") {
             Utility::Redirect("Manager", "Account");
             unset($_POST['cancelAddAccount']);
-        }
-        else if (isset($_POST['addAccount']) && trim($_POST['addAccount']) != "") {
+        } else if (isset($_POST['addAccount']) && trim($_POST['addAccount']) != "") {
             unset($_POST['addAccount']);
 
             $username = $_POST['username'];
             $password = $_POST['password'];
             $password2 = $_POST['password2'];
 
-            if ($username == "" && $password == "" && $password2 == ""){
+            if ($username == "" && $password == "" && $password2 == "") {
                 $this->RenderView(self::VIEW_ADD_ACCOUNT);
-            }
-            else if ($username == "" || $password == "" || $password2 == ""){
-                $this->RenderView(self::VIEW_ADD_ACCOUNT,[
+            } else if ($username == "" || $password == "" || $password2 == "") {
+                $this->RenderView(self::VIEW_ADD_ACCOUNT, [
                     "reasonFailed" => "Không được để trống thông tin"
                 ]);
-            }
-            else{
-                if ($this->accountModel->GetAccountWithoutPassword($username) != null){
-                    $this->RenderView(self::VIEW_ADD_ACCOUNT,[
+            } else {
+                if ($this->accountModel->GetAccountWithoutPassword($username) != null) {
+                    $this->RenderView(self::VIEW_ADD_ACCOUNT, [
                         "reasonFailed" => "Tên đăng nhập đã tồn tại"
                     ]);
-                }
-                else{
-                    if ($password != $password2){
-                        $this->RenderView(self::VIEW_ADD_ACCOUNT,[
+                } else {
+                    if ($password != $password2) {
+                        $this->RenderView(self::VIEW_ADD_ACCOUNT, [
                             "reasonFailed" => "Mật khẩu nhập lại không khớp"
                         ]);
-                    }
-                    else{
-                        if ($this->accountModel->Add($username, md5($password))){
+                    } else {
+                        if ($this->accountModel->Add($username, md5($password))) {
                             Utility::AlertRedirect("Thêm tài khoản thành công", "Manager", "Account");
-                        }
-                        else{
+                        } else {
                             $this->RenderView(self::VIEW_ADD_ACCOUNT);
                         }
                     }
                 }
             }
-        }
-        else{
+        } else {
             $this->RenderView(self::VIEW_ADD_ACCOUNT);
         }
-        
     }
 }

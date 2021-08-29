@@ -2,7 +2,6 @@
 
 namespace Models;
 use Core\Model;
-use PDO;
 
 class AdmissionsYearModel extends Model{
     public const MODEL = "AdmissionsYear";

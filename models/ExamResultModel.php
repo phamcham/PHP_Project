@@ -13,7 +13,9 @@ class ExamResultModel extends Model{
         $st->bindParam(":id", $id);
 
         $st->execute();
-        return $st->fetchAll()[0];
+        if ($st->rowCount() == 1)
+            return $st->fetchAll()[0];
+        else return null;
     }
 
     public function Add($examResult){

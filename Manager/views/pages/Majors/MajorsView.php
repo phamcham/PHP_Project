@@ -51,7 +51,7 @@ $query = mysqli_query($conn, $sql);
 
                 </tbody>
             </table>
-            <a class="btn btn-primary" href="Majors/Add"> Thêm mới </a>
+            <a class="btn btn-primary" href="/PHP_Project/Manager/Majors/Add"> Thêm mới </a>
         </div>
     </div>
 </div>

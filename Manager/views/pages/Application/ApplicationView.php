@@ -42,7 +42,7 @@
                             <script>
                                 function jsAddClicked() {
                                     window.location = "http://" + "<?php echo $_SERVER['HTTP_HOST'] ?>" +
-                                            "/PHP_Project/Manager/Application/Add/" + <?php echo $data['admissionsYear']['idAdmissionsYear'] ?>;
+                                        "/PHP_Project/Manager/Application/Add/" + <?php echo $data['admissionsYear']['idAdmissionsYear'] ?>;
                                 }
                             </script>
 
@@ -65,6 +65,7 @@
                         <table class="table table-bordered table-striped" style="margin-top: 20px;">
                             <thead class=" position-sticky" style="top: 80px;">
                                 <tr style="color: black; background-color: #92b5ff;">
+                                    <th scope="col">STT</th>
                                     <th scope="col">Mã hồ sơ</th>
                                     <th scope="col">Tên thí sinh</th>
                                     <th scope="col">Giới tính</th>
@@ -81,8 +82,10 @@
                                     <td>@mdo</td>
                                 </tr> -->
                                 <?php
+                                $index = 1;
                                 foreach ($data['applications'] as $appl) {
                                     echo '<tr>';
+                                    echo '<th scope="row">' . $index++ . '</th>';
                                     echo '<th scope="row">' . $appl['idApplication'] . '</th>';
                                     echo '<td>' . $appl['name'] . '</td>';
                                     echo '<td>' . ($appl['gender'] == 1 ? 'Nam' : 'Nữ') . '</td>';
@@ -123,7 +126,11 @@
 
                             </tbody>
                         </table>
-
+                        <a href="Application/ReportExcel/<?php echo $data['admissionsYear']['idAdmissionsYear']; ?>">
+                            <div class="d-flex" style="font-size: medium;">
+                                <button class="btn btn-secondary btn-toolbar">Xuất Excel</button>
+                            </div>
+                        </a>
                         <!-- content end -->
                     </div>
                 </div>

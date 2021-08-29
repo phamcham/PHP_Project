@@ -10,6 +10,12 @@
                         <!-- content begin -->
                         <h3 class="text-center fa-2x mb-lg-5">CẬP NHẬT THÔNG TIN HỒ SƠ <font style="color: red;"><?php echo $data['application']['idApplication'] ?></font> NĂM <?php echo $curYear = $data['admissionsYear']['valueAdmissionsYear'] ?></h3>
 
+                        <?php
+                            if (isset($data['reasonFailed'])){
+                                echo '<div class="alert alert-danger">' . $data['reasonFailed'] . '</div>';
+                            }
+                        ?>
+
                         <div class="d-flex justify-content-start align-items-center justify-content-md-between mb-md-4">
                             <p style="color: #0d4e96; font-weight: bold; font-size: initial;">THÔNG TIN CÁ NHÂN CỦA THÍ SINH</p>
                         </div>
@@ -142,10 +148,6 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="d-flex justify-content-start align-items-center mb-md-3 mt-md-4" style="color: #0d4e96; font-weight: bold; font-size: initial;">
-                                THÔNG TIN ĐIỂM THI
                             </div>
 
                             <!-- TODO -->

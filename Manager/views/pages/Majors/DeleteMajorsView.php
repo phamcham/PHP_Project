@@ -5,14 +5,21 @@ use Core\Utility;
 require "vanToanConnect.php";
 
 $id = $data['id'];
-$sql = "DELETE FROM Majors WHERE idMajors = $id";
+$sql = "UPDATE Majors SET `enabled` = 0 WHERE idMajors = $id";
 mysqli_query($conn, $sql);
-mysqli_close($conn);
 
-if ($conn->error != null || $conn->error == ""){
-    Utility::AlertRedirect("Ngành $id đã được sử dụng", "Manager", "Majors");
+if (mysqli_error($conn)){
+    $link = "http://" . $_SERVER['HTTP_HOST'] . "/PHP_Project/Manager/Majors";
+    $alert = "Ngành $id đã được sử dụng";
+    echo '<script>alert("' . $alert . '");'
+        .'location = "'.$link.'"'.'</script>';
+
 }
 else{
-    Utility::AlertRedirect("Xoá ngành $id thành công!", "Manager", "Majors");
+    $link = "http://" . $_SERVER['HTTP_HOST'] . "/PHP_Project/Manager/Majors";
+    $alert = "Xoá ngành $id thành công!";
+    echo '<script>alert("' . $alert . '");'
+        .'location = "'.$link.'"'.'</script>';
 }
+
 ?>
