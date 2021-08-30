@@ -8,7 +8,6 @@ abstract class Model{
         static $db = null;
 
         if ($db === null) {
-            require_once "./core/DBConfig.php";
             $dsn = 'mysql:host=' . DBConfig::DB_HOST . ';dbname=' . DBConfig::DB_NAME . ';charset=utf8';
             $db = new PDO($dsn, DBConfig::DB_USER, DBConfig::DB_PASSWORD);
 

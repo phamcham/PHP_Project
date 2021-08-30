@@ -1,5 +1,8 @@
 <?php
-$conn = mysqli_connect("localhost","root","1234","admissionsmanagement");
+
+use Core\DBConfig;
+
+$conn = mysqli_connect(DBConfig::DB_HOST,DBConfig::DB_USER,DBConfig::DB_PASSWORD, DBConfig::DB_NAME);
 if(!$conn)
 {
 	echo "Loi connection";

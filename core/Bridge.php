@@ -6,6 +6,7 @@ require_once "./core/App.php";
 require_once "./core/Controller.php";
 require_once "./core/Utility.php";
 require_once "./core/ExportExcel.php";
+require_once "./core/DBConfig.php";
 
 require_once "./Client/controllers/_ClientController.php";
 require_once "./Client/controllers/HomeController.php";

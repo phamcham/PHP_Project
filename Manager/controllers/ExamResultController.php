@@ -11,6 +11,7 @@ class ExamResultController extends _ManagerController
 {
     public const VIEW_EXAMRESULT = "ExamResult/ExamResult";
     public const VIEW_ADD_EXAMRESULT = "ExamResult/AddExamResult";
+    public const VIEW_UPDATE_EXAMRESULT = "ExamResult/UpdateExamResult";
 
     public ExamResultModel $examResultModel;
     public AdmissionsYearModel $admissionsYearModel;
@@ -69,5 +70,16 @@ class ExamResultController extends _ManagerController
                 'admissionsYear' => $admissionsYear
             ]);
         }
+    }
+
+    // use post
+    function Update($id){
+        $this->RenderView(self::VIEW_UPDATE_EXAMRESULT, [
+            'idExamResult' => $id
+        ]);
+    }
+
+    function Export(){
+        require_once "./Manager/views/pages/ExamResult/export.php";
     }
 }
