@@ -37,16 +37,16 @@ if (!empty($_POST)) {
 
 
 
-	$sql2 = "INSERT into AdmissionsMajor(`idAdmissionsYear`,`idMajors`,`numberOf`,`groups`,`condition`) values ($ad_idY,$ad_idM, '$ad_chitieu', '$ad_tohop',$ad_dieukien)" or die("lỗi thêm dữ liệu");
+	$sql2 = "INSERT into AdmissionsMajor(`idAdmissionsYear`,`idMajors`,`numberOf`,`groups`,`condition`) values ($ad_idY,$ad_idM, $ad_chitieu, '$ad_tohop',$ad_dieukien)" or die("lỗi thêm dữ liệu");
 
 	if (mysqli_query($conn, $sql2)) {
-		echo "thêm thành công  thành công";
+		echo "thêm thành công";
 	} else {
 		echo "thêm  thất bại: " . mysqli_error($conn);
 	}
 	// //echo $sql2;
 	$link = "http://" . $_SERVER['HTTP_HOST'] . "/PHP_Project/Manager/AdmissionsMajor";
-	$alert = "Thêm nghành thành công ";
+	$alert = "Thêm ngành thành công ";
 	echo '<script>alert("' . $alert . '");'
 		. 'location = "' . $link . '"' . '</script>';
 }
@@ -60,7 +60,7 @@ if (!empty($_POST)) {
 	<div class="container" style="background-color: #fff;">
 		<div class="panel panel-primary">
 			<div class="panel-heading">
-				<h2 class="text-center">Thêm nghành tuyển sinh</h2>
+				<h2 class="text-center">Thêm ngành tuyển sinh</h2>
 			</div>
 			<div class="panel-body">
 				<form method="post" action="">
@@ -80,7 +80,7 @@ if (!empty($_POST)) {
 						</select>
 					</div>
 					<div class="form-group">
-						<label for="id">Mã nghành tuyển sinh:</label>
+						<label for="id">Mã ngành tuyển sinh:</label>
 						<select required="true" class="form-control" name="idMajors">
 							<?php
 							$sql = "SELECT nameMajors from Majors WHERE `enabled` = 1";

@@ -8,9 +8,10 @@ require_once('anhThuConnect.php');
     <div class="container" style="background-color: #fff;">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                Quản lý ngành tuyển sinh
+                <h3 style="text-align:center; color: chocolate;">QUẢN LÝ NGÀNH TUYỂN SINH<h3>
                 <form method="POST">
                     <input type="text" name="s" class="form-control" style="margin-top: 15px; margin-bottom: 15px;" placeholder="Tìm kiếm theo năm tuyển sinh">
+                    <button class="btn btn-success">Search</button>
                 </form>
             </div>
             <div class="panel-body">
@@ -19,9 +20,9 @@ require_once('anhThuConnect.php');
                         <tr>
                             <th>STT</th>
                             <th>Năm tuyển sinh</th>
-                            <th>Nghành tuyển sinh</th>
+                            <th>Ngành tuyển sinh</th>
                             <th>Chỉ tiêu </th>
-                            <th>Nhóm nghành tuyển sinh</th>
+                            <th>Nhóm ngành tuyển sinh</th>
                             <th>Điều kiện </th>
                             <th width="60px"></th>
                             <th width="60px"></th>
@@ -52,7 +53,7 @@ require_once('anhThuConnect.php');
                         ?>
                     </tbody>
                 </table>
-                <button class="btn btn-success" onclick="window.open('AdmissionsMajor/Add')">Thêm nghành tuyển sinh</button>
+                <button class="btn btn-success" onclick="window.location = '/PHP_Project/Manager/AdmissionsMajor/Add'">Thêm ngành tuyển sinh</button>
             </div>
         </div>
     </div>
@@ -60,10 +61,10 @@ require_once('anhThuConnect.php');
 <script type="text/javascript">
     function deleteM(idMajors, idAdmissionsYear) {
         console.log(idMajors + " " + idAdmissionsYear);
-        location = "AdmissionsMajor/Delete/" + idMajors + "/" + idAdmissionsYear;
+        location = "/PHP_Project/Manager/AdmissionsMajor/Delete/" + idMajors + "/" + idAdmissionsYear;
     }
     function updateM(idMajors, idAdmissionsYear) {
         console.log(idMajors + " " + idAdmissionsYear);
-        location = "AdmissionsMajor/Update/" + idMajors + "/" + idAdmissionsYear;
+        location = "/PHP_Project/Manager/AdmissionsMajor/Update/" + idMajors + "/" + idAdmissionsYear;
     }
 </script>

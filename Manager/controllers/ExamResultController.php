@@ -12,6 +12,7 @@ class ExamResultController extends _ManagerController
     public const VIEW_EXAMRESULT = "ExamResult/ExamResult";
     public const VIEW_ADD_EXAMRESULT = "ExamResult/AddExamResult";
     public const VIEW_UPDATE_EXAMRESULT = "ExamResult/UpdateExamResult";
+    public const VIEW_FIND_EXAMRESULT = "ExamResult/FindExamResult";
 
     public ExamResultModel $examResultModel;
     public AdmissionsYearModel $admissionsYearModel;
@@ -77,6 +78,10 @@ class ExamResultController extends _ManagerController
         $this->RenderView(self::VIEW_UPDATE_EXAMRESULT, [
             'idExamResult' => $id
         ]);
+    }
+
+    function Find(){
+        $this->RenderView(self::VIEW_FIND_EXAMRESULT);
     }
 
     function Export(){

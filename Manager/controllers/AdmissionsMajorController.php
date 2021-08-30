@@ -26,9 +26,10 @@ class AdmissionsMajorController extends _ManagerController{
     }
 
     function Update($idMajors, $idAdmissionsYear){
-        $_POST['idMajors'] = $idMajors;
-        $_POST['idAdmissionsYear'] = $idAdmissionsYear;
-        $this->RenderView(self::VIEW_UPDATE_ADMISSIONSMAJOR);
+        $this->RenderView(self::VIEW_UPDATE_ADMISSIONSMAJOR, [
+            'idMajors' => $idMajors,
+            'idAdmissionsYear' => $idAdmissionsYear
+        ]);
     }
 }
 

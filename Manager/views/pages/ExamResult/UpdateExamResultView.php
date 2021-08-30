@@ -73,72 +73,71 @@ if (!empty($_POST)) {
 ?>
 
 
-<div class="trg-style">
-    <div class="container" style="background-color: #fff;">
-        <div class="panel panel-primary">
-            <div class="panel-heading">
-                <h2 class="text-center" style=" font-weight: bold; padding-top: 20px;">Sửa tuyển sinh</h2>
-            </div>
-            <div class="panel-body">
-                <form method="post">
-                    <div class="form-group">
-                        <label for="number">Mã bảng điểm :</label>
-                        <input required="true" type="text" class="form-control" name="idExamResult" value="<?php echo $rs['idExamResult']; ?>" readonly>
-                    </div>
+<div class="container" style="background-color: #fff;">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h2 class="text-center" style=" font-weight: bold; padding-top: 20px;">Sửa tuyển sinh</h2>
+        </div>
+        <div class="panel-body">
+            <form method="post">
+                <div class="form-group">
+                    <label for="number">Mã bảng điểm :</label>
+                    <input required="true" type="text" class="form-control" name="idExamResult" value="<?php echo $rs['idExamResult']; ?>" readonly>
+                </div>
 
-                    <div class="form-group">
-                        <label for="number">Ngữ văn :</label>
-                        <input required="true" type="text" class="form-control" name="nguVan" value="<?php echo $rs['nguVan']; ?>">
-                    </div>
+                <div class="form-group">
+                    <label for="number">Ngữ văn :</label>
+                    <input required="true" type="text" class="form-control" name="nguVan" value="<?php echo $rs['nguVan']; ?>">
+                </div>
 
-                    <div class="form-group">
-                        <label for="number">Toán:</label>
-                        <input type="text" class="form-control" name="toan" value="<?php echo $rs['toan']; ?>">
-                    </div>
+                <div class="form-group">
+                    <label for="number">Toán:</label>
+                    <input type="text" class="form-control" name="toan" value="<?php echo $rs['toan']; ?>">
+                </div>
 
-                    <div class="form-group">
-                        <label for="number">Ngoại ngữ:</label>
-                        <input type="text" class="form-control" name="ngoaiNgu" value="<?php echo $rs['ngoaiNgu']; ?>">
-                    </div>
+                <div class="form-group">
+                    <label for="number">Ngoại ngữ:</label>
+                    <input type="text" class="form-control" name="ngoaiNgu" value="<?php echo $rs['ngoaiNgu']; ?>">
+                </div>
 
-                    <div class="form-group">
-                        <label for="number">Vật lý:</label>
-                        <input type="text" class="form-control" name="vatLy" value="<?php echo $rs['vatLy']; ?>">
-                    </div>
+                <div class="form-group">
+                    <label for="number">Vật lý:</label>
+                    <input type="text" class="form-control" name="vatLy" value="<?php echo $rs['vatLy']; ?>">
+                </div>
 
-                    <div class="form-group">
-                        <label for="number">Hóa học :</label>
-                        <input type="text" class="form-control" name="hoaHoc" value="<?php echo $rs['hoaHoc']; ?>">
-                    </div>
+                <div class="form-group">
+                    <label for="number">Hóa học :</label>
+                    <input type="text" class="form-control" name="hoaHoc" value="<?php echo $rs['hoaHoc']; ?>">
+                </div>
 
-                    <div class="form-group">
-                        <label for="number">Sinh học :</label>
-                        <input type="text" class="form-control" name="sinhHoc" value="<?php echo $rs['sinhHoc']; ?>">
-                    </div>
+                <div class="form-group">
+                    <label for="number">Sinh học :</label>
+                    <input type="text" class="form-control" name="sinhHoc" value="<?php echo $rs['sinhHoc']; ?>">
+                </div>
 
-                    <div class="form-group">
-                        <label for="number">Lịch sử:</label>
-                        <input type="text" class="form-control" name="lichSu" value="<?php echo $rs['lichSu']; ?>">
-                    </div>
+                <div class="form-group">
+                    <label for="number">Lịch sử:</label>
+                    <input type="text" class="form-control" name="lichSu" value="<?php echo $rs['lichSu']; ?>">
+                </div>
 
-                    <div class="form-group">
-                        <label for="number">Địa lý:</label>
-                        <input type="text" class="form-control" name="diaLy" value="<?php echo $rs['diaLy']; ?>">
-                    </div>
+                <div class="form-group">
+                    <label for="number">Địa lý:</label>
+                    <input type="text" class="form-control" name="diaLy" value="<?php echo $rs['diaLy']; ?>">
+                </div>
 
-                    <div class="form-group">
-                        <label for="number">GDCD:</label>
-                        <input type="text" class="form-control" name="gdcd" value="<?php echo $rs['gdcd']; ?>">
-                    </div>
+                <div class="form-group">
+                    <label for="number">GDCD:</label>
+                    <input type="text" class="form-control" name="gdcd" value="<?php echo $rs['gdcd']; ?>">
+                </div>
 
-                    <div class="form-group">
-                        <label for="number">Điểm cộng:</label>
-                        <input type="text" class="form-control" name="diemCong" value="<?php echo $rs['diemCong']; ?>">
-                    </div>
+                <div class="form-group">
+                    <label for="number">Điểm cộng:</label>
+                    <input type="text" class="form-control" name="diemCong" value="<?php echo $rs['diemCong']; ?>">
+                </div>
 
-                    <button class="btn btn-success">Lưu</button>
-                </form>
-            </div>
+                <button class="btn btn-success">Lưu</button>
+            </form>
+            <button class="btn btn-success mt-3" onclick="window.location = '/PHP_Project/Manager/ExamResult'">Trở về </button>
         </div>
     </div>
 </div>

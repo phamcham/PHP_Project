@@ -13,34 +13,28 @@
     $filename = "diem-data" . date('Y-m-d').".xls";
 
     // colum names
-    $fields = array('idExamResult','nguVan' , 'toan' , 'ngoaiNgu', 'vatLy' , 'hoaHoc' , 'sinhHoc' , 'lichSu' , 'diaLy' , 'gdcd' , 'diemCong' );
+    $fields = array('Mã bảng điểm','Ngữ Văn' , 'Toán' , 'Ngoại Ngữ', 'Vật Lý' , 'Hóa Học' , 'Sinh Học' , 'Lịch Sử' , 'Địa Lý' , 'Giáo dục công dân' , 'Điểm Cộng' );
 
     // display colum names as file row
     $excelData = implode("\t",array_values($fields))."\n";
 
     // fetch record form database
 
-    $sql = "select * from ExamResult  ";
+    $sql = "SELECT * from ExamResult  ";
 	$sq = mysqli_query($conn,$sql);
-    if($sq)
-    {
         //output each of the data
         while($std = mysqli_fetch_array($sq))
         {
-            $lineData = array($std['idExamResult'],$std['nguVan'],$std['toan'],$std['ngoaiNgu'],$std['vatLy'],$std['hoaHoc'],$std['sinhHoc'],$std['lichSu'],$std['diaLy'],$std['gdcd'],$std['diemCong']);
+            $lineData = array($std['idExamResult'],$std['toan'],$std['ngoaiNgu'],$std['vatLy'],$std['hoaHoc'],$std['sinhHoc'],$std['lichSu'],$std['diaLy'],$std['gdcd'],$std['diemCong']);
             array_walk($lineData,'filData');
             $excelData .= implode("\t",array_values($lineData))."\n";
 
         }
-    }
-    else 
-    {
-        $excelData .="No records found"."\n";
-    }
-    header("Content-Type: application/vnd.ms-excel; charset=UTF-8");
-    header("Content-Disposition: attachment; filename=\"$fileName\"");
+    
+    header("content-type: application/vnd.ms-excel");
+    header("content-disposition: attachment; filname=\"$filename\"");
 
     // render excel data
-    echo $excelData;
+    echo chr(255).chr(254).mb_convert_encoding($excelData, "UTF-16LE","UTF-8");
     exit;
 ?>

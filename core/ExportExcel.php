@@ -33,7 +33,7 @@ class ExcelExporter
 
         // Render excel data 
 
-        echo chr(255).chr(254).mb_convert_encoding($excelData, "UTF-16LE","UTF-8");;
+        echo chr(255).chr(254).mb_convert_encoding($excelData, "UTF-16LE","UTF-8");
 
         exit;
     }

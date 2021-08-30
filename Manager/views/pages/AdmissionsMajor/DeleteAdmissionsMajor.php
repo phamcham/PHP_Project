@@ -12,7 +12,7 @@ $sql = "DELETE from AdmissionsMajor where idMajors = $idM and idAdmissionsYear =
 
 if (mysqli_query($conn, $sql)) {
     $link = "http://" . $_SERVER['HTTP_HOST'] . "/PHP_Project/Manager/AdmissionsMajor";
-    $alert = "Xóa nghành thành công ";
+    $alert = "Xóa ngành thành công ";
     echo '<script>alert("' . $alert . '");'
         . 'location = "' . $link . '"' . '</script>';
 } else {
@@ -20,6 +20,6 @@ if (mysqli_query($conn, $sql)) {
 }
 
             // $link = "http://" . $_SERVER['HTTP_HOST'] . "/PHP_Project/BTL/QLDiem.php";
-            // $alert = "Xóa nghành thành công ";
+            // $alert = "Xóa ngành thành công ";
             // echo '<script>alert("' . $alert . '");'
             // .'location = "'.$link.'"'.'</script>';  
