@@ -6,7 +6,7 @@ use PDO;
 
 class MajorsModel extends Model{
     public function GetByID($id){
-        $sql = "select * from Majors where idMajors = :id";
+        $sql = "SELECT * from Majors where idMajors = :id";
         $db = static::GetDB();
         $st = $db->prepare($sql);
         $st->bindParam(":id", $id);

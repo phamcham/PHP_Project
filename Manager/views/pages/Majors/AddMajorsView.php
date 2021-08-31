@@ -38,12 +38,13 @@ if (isset($_POST['submit'])) {
                 //Thêm dữ liệu vào bảng majors
                 $sql_insert = "INSERT INTO majors(idMajors,nameMajors,descriptionMajors,enabled) 	VALUES($idMajor,'$nameMajor','$descriptionMajor',$enabled)";
                 mysqli_query($conn, $sql_insert);
+                Utility::AlertRedirect("Thêm thành công", "Manager", "Majors");
             }
         }
     }
     mysqli_close($conn);
 
-    Utility::AlertRedirect("Thêm thành công", "Manager", "Majors");
+    
 }
 
 ?>
