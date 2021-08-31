@@ -3,17 +3,7 @@ require_once('anhThuConnect.php');
 
 $ad_chitieu = $ad_tohop = $ad_dieukien = $ad_idM = $ad_id = '';
 if (!empty($_POST)) {
-	$ad_idY = '';
-
-	if (isset($_POST['idMajors'])) {
-		$value = $_POST['idMajors'];
-		$sql = "SELECT idMajors from Majors WHERE `enabled` = 1";
-		$sq = mysqli_query($conn, $sql);
-		while ($rows = mysqli_fetch_array($sq)) {
-			$ad_idM = $rows['idMajors'];
-		}
-	}
-
+	var_dump($_POST);
 	if (isset($_POST['numberOf'])) {
 		$ad_chitieu = $_POST['numberOf'];
 	}
@@ -26,29 +16,21 @@ if (!empty($_POST)) {
 		$ad_dieukien = $_POST['condition'];
 	}
 
-	if (!empty($_POST['idAdmissionsYear'])) {
-		$value = $_POST['idAdmissionsYear'];
-		$sql = "select idAdmissionsYear from AdmissionsYear where valueAdmissionsYear = '$value'";
-		$sq = mysqli_query($conn, $sql);
-		while ($rows = mysqli_fetch_array($sq)) {
-			$ad_idY = $rows['idAdmissionsYear'];
-		}
-	}
-
-
+	$ad_idM = $_POST['idMajors'];
+	$ad_idY = $_POST['idAdmissionsYear'];
 
 	$sql2 = "INSERT into AdmissionsMajor(`idAdmissionsYear`,`idMajors`,`numberOf`,`groups`,`condition`) values ($ad_idY,$ad_idM, $ad_chitieu, '$ad_tohop',$ad_dieukien)" or die("lỗi thêm dữ liệu");
 
 	if (mysqli_query($conn, $sql2)) {
-		echo "thêm thành công";
+		//echo "thêm thành công";
+		// //echo $sql2;
+		$link = "http://" . $_SERVER['HTTP_HOST'] . "/PHP_Project/Manager/AdmissionsMajor";
+		$alert = "Thêm ngành thành công ";
+		echo '<script>alert("' . $alert . '");'
+			. 'location = "' . $link . '"' . '</script>';
 	} else {
 		echo "thêm  thất bại: " . mysqli_error($conn);
 	}
-	// //echo $sql2;
-	$link = "http://" . $_SERVER['HTTP_HOST'] . "/PHP_Project/Manager/AdmissionsMajor";
-	$alert = "Thêm ngành thành công ";
-	echo '<script>alert("' . $alert . '");'
-		. 'location = "' . $link . '"' . '</script>';
 }
 
 
@@ -65,30 +47,30 @@ if (!empty($_POST)) {
 			<div class="panel-body">
 				<form method="post" action="">
 					<div class="form-group">
-						<label for="id">Mã năm tuyển sinh:</label>
+						<label for="id">Năm tuyển sinh:</label>
 						<input type="text" name="id" style="display: none;">
 						<select required="true" class="form-control" name="idAdmissionsYear">
 							<?php
-							$sql = "select valueAdmissionsYear from AdmissionsYear";
+							$sql = "SELECT * from AdmissionsYear";
 							$sq = mysqli_query($conn, $sql);
 							while ($rows = mysqli_fetch_array($sq)) {
 							?>
-								<option value="<?php echo $rows['valueAdmissionsYear']; ?>"><?php echo $rows['valueAdmissionsYear']; ?></option>
+								<option value="<?php echo $rows['idAdmissionsYear']; ?>"><?php echo $rows['valueAdmissionsYear']; ?></option>
 							<?php
 							}
 							?>
 						</select>
 					</div>
 					<div class="form-group">
-						<label for="id">Mã ngành tuyển sinh:</label>
+						<label for="id">Ngành tuyển sinh:</label>
 						<select required="true" class="form-control" name="idMajors">
 							<?php
-							$sql = "SELECT nameMajors from Majors WHERE `enabled` = 1";
+							$sql = "SELECT * from Majors WHERE `enabled` = 1";
 							$sq = mysqli_query($conn, $sql);
 
 							while ($rows = mysqli_fetch_array($sq)) {
 							?>
-								<option id="<?php echo $rows['idMajors']; ?>">
+								<option value="<?php echo $rows['idMajors']; ?>">
 
 									<?php echo $rows['nameMajors']; ?>
 

@@ -7,6 +7,7 @@ class AdmissionsMajorController extends _ManagerController{
     public const VIEW_ADMISSIONSMAJOR = "AdmissionsMajor/AdmissionsMajor";
     public const VIEW_ADD_ADMISSIONSMAJOR = "AdmissionsMajor/AddAdmissionsMajor";
     public const VIEW_UPDATE_ADMISSIONSMAJOR = "AdmissionsMajor/UpdateAdmissionsMajor";
+    public const VIEW_FIND_ADMISSIONSMAJOR = "AdmissionsMajor/FindAdmissionsMajor";
 
     function Index(){
         // model TODO
@@ -30,6 +31,10 @@ class AdmissionsMajorController extends _ManagerController{
             'idMajors' => $idMajors,
             'idAdmissionsYear' => $idAdmissionsYear
         ]);
+    }
+
+    function Find(){
+        $this->RenderView(self::VIEW_FIND_ADMISSIONSMAJOR);
     }
 }
 

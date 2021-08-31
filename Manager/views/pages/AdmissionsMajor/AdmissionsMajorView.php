@@ -8,9 +8,9 @@ require_once('anhThuConnect.php');
     <div class="container" style="background-color: #fff;">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h3 style="text-align:center; color: chocolate;">QUẢN LÝ NGÀNH TUYỂN SINH<h3>
-                <form method="POST">
-                    <input type="text" name="s" class="form-control" style="margin-top: 15px; margin-bottom: 15px;" placeholder="Tìm kiếm theo năm tuyển sinh">
+                <h3 style="text-align:center; color: chocolate; padding-top: 20px;">QUẢN LÝ NGÀNH TUYỂN SINH<h3>
+                <form method="POST" action="/PHP_Project/Manager/AdmissionsMajor/Find">
+                    <input type="text" name="name" class="form-control" style="margin-top: 15px; margin-bottom: 15px;" placeholder="Tìm kiếm theo năm tuyển sinh">
                     <button class="btn btn-success">Search</button>
                 </form>
             </div>
