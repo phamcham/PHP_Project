@@ -29,4 +29,10 @@
             </tr>
         </tbody>
     </table>
+    <button class="btn btn-success" onclick="jsUpdateExamResult(<? echo $data['examResult']['idExamResult'] ?>)">Cập nhật bảng điểm</button>
+    <script>
+        function jsUpdateExamResult(idExamResult){
+            location = "/PHP_Project/Manager/ExamResult/Update/" + idExamResult;
+        }
+    </script>
 </div>

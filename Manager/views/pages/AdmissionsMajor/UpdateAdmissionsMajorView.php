@@ -62,11 +62,12 @@ if (!empty($_POST)) {
                     <label for="id">Năm tuyển sinh:</label>
                     <select disabled required="true" class="form-control" name="idAdmissionsYear">
                         <?php
-                        $sql = "select valueAdmissionsYear from AdmissionsYear";
+                        $sql = "SELECT * from AdmissionsYear";
                         $sq = mysqli_query($conn, $sql);
                         while ($rows = mysqli_fetch_array($sq)) {
                         ?>
-                            <option value="<?php echo $rows['valueAdmissionsYear']; ?>"><?php echo $rows['valueAdmissionsYear']; ?></option>
+                            <option <?echo $rows['idAdmissionsYear'] == $data['idAdmissionsYear'] ? 'selected' : ''?>
+                            value="<?php echo $rows['idAdmissionsYear']; ?>"><?php echo $rows['valueAdmissionsYear']; ?></option>
                         <?php
                         }
                         ?>
