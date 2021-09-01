@@ -51,7 +51,7 @@ if (!empty($_POST)) {
         mysqli_query($conn, $sql2);
         if (mysqli_error($conn)) {
             $link = "http://" . $_SERVER['HTTP_HOST'] . "/PHP_Project/Manager/ExamResult";
-            $alert = "Lỗi nhập liệu ";
+            $alert = "Điểm nhập phải là số  ";
             echo '<script>alert("' . $alert . '");'
                 . 'location = "' . $link . '"' . '</script>';
         } else {
@@ -63,7 +63,7 @@ if (!empty($_POST)) {
     } else {
 
         $link = "http://" . $_SERVER['HTTP_HOST'] . "/PHP_Project/Manager/ExamResult/Update/" . $id1;
-        $alert = "Lỗi nhập liệu ";
+        $alert = "Điểm nhập phải lớn hơn hoặc bằng 0 và nhỏ hơn hoặc bằng 10   ";
         echo '<script>alert("' . $alert . '");'
             . 'location = "' . $link . '"' . '</script>';
     }
