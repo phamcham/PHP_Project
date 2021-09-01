@@ -29,7 +29,10 @@ if (!empty($_POST)) {
 		echo '<script>alert("' . $alert . '");'
 			. 'location = "' . $link . '"' . '</script>';
 	} else {
-		echo "thêm  thất bại: " . mysqli_error($conn);
+		$link = "http://" . $_SERVER['HTTP_HOST'] . "/PHP_Project/Manager/AdmissionsMajor/Add";
+		$alert = "Thêm ngành thất bại  thành công ";
+		echo '<script>alert("' . $alert . '");'
+		. 'location = "' . $link . '"' . '</script>';
 	}
 }
 
