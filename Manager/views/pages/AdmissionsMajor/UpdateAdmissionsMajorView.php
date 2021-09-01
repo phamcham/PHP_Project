@@ -41,7 +41,10 @@ if (!empty($_POST)) {
         echo '<script>alert("' . $alert . '");'
             . 'location = "' . $link . '"' . '</script>';
     } else {
-        header('Location: /PHP_Project/Manager/AdmissionsMajor/');
+       $link = "http://" . $_SERVER['HTTP_HOST'] . "/PHP_Project/Manager/AdmissionsMajor/";
+        $alert = "Sửa thành công  ";
+        echo '<script>alert("' . $alert . '");'
+            . 'location = "' . $link . '"' . '</script>';
     }
 }
 
