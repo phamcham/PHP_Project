@@ -97,8 +97,10 @@ if (!empty($_POST)) {
                 </div>
 
                 <button class="btn btn-success">Lưu</button>
-                <button class="btn btn-success" onclick="window.location = '/PHP_Project/Manager/AdmissionsMajor'">Trở về </button>
+               
             </form>
+            
+            <button class="btn btn-success" onclick="window.location = '/PHP_Project/Manager/AdmissionsMajor'">Trở về </button>
         </div>
     </div>
 </div>
