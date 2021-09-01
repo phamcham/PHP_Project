@@ -34,7 +34,16 @@ require_once('anhThuConnect.php');
                 $idExamResult = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM `Application` WHERE `idApplication` = $idApplication"))['idExamResult'];
                 $sql = "SELECT * from ExamResult where idExamResult = $idExamResult";
                 $sq = mysqli_query($conn, $sql);
-                while ($std = mysqli_fetch_array($sq)) {
+                if(mysqli_errno($conn))
+                {
+                    $link = "http://" . $_SERVER['HTTP_HOST'] . "/PHP_Project/Manager/ExamResult";
+                    $alert = "Nhập lại SBD cần tìm  ";
+                    echo '<script>alert("' . $alert . '");'
+                    . 'location = "' . $link . '"' . '</script>';
+                }
+                else 
+                {
+                    while ($std = mysqli_fetch_array($sq)) {
                     $tong = $std['nguVan'] + $std['toan'] + $std['ngoaiNgu'] + $std['vatLy'] + $std['hoaHoc'] + $std['sinhHoc'] + $std['lichSu'] + $std['diaLy'] + $std['gdcd'] + $std['diemCong'];
                     echo '<tr>
                         <td>' . $std['nguVan'] . '</td>
@@ -49,6 +58,7 @@ require_once('anhThuConnect.php');
                         <td>' . $std['diemCong'] . '</td>
                         <td>' . $tong . '</td>
                     </tr>';
+                    }
                 }
             }
             ?>
