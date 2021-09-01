@@ -25,14 +25,26 @@ require_once('anhThuConnect.php');
                 $id = mysqli_fetch_array($mq)['idAdmissionsYear'];
             }
             else{
-                exit;
+                 $link = "http://" . $_SERVER['HTTP_HOST'] . "/PHP_Project/Manager/AdmissionsMajor";
+                 $alert = "Nhập lại năm cần tìm  ";
+                 echo '<script>alert("' . $alert . '");'
+                 . 'location = "' . $link . '"' . '</script>';
             }
 
             $sql = "SELECT * from AdmissionsMajor where idAdmissionsYear = '$id' ";
             $sq = mysqli_query($conn, $sql);
             $nam = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM AdmissionsYear WHERE idAdmissionsYear = " . $id))['valueAdmissionsYear'];
 
-            while ($std = mysqli_fetch_array($sq)) {
+            if(mysqli_errno($conn))
+                {
+                    $link = "http://" . $_SERVER['HTTP_HOST'] . "/PHP_Project/Manager/AdmissionsMajor";
+                    $alert = "Nhập lại năm cần tìm  ";
+                    echo '<script>alert("' . $alert . '");'
+                    . 'location = "' . $link . '"' . '</script>';
+                }
+            else 
+            {
+                while ($std = mysqli_fetch_array($sq)) {
                 $nganh = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM Majors WHERE idMajors = " . $std['idMajors']))['nameMajors'];
                 echo '<tr>
                     <td>' . $nam . '</td>
@@ -41,6 +53,7 @@ require_once('anhThuConnect.php');
                     <td>' . $std['groups'] . '</td>
                     <td>' . $std['condition'] . '</td>
                 </tr>';
+                }
             }
         }
 
